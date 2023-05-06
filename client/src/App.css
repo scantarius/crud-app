@@ -1,0 +1,138 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@1,100&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Sarpanch&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Teko:wght@300&display=swap');
+
+* {
+  background-color: #4a4e69;
+}
+
+.App {
+  font-family: 'Poppins', sans-serif;
+}
+
+.title {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 100px 100px 0px;
+  font-family: 'Sarpanch', sans-serif;
+}
+
+.title h2 {
+  font-family: 'Poppins', sans-serif;
+}
+
+.title button {
+  height: 60px;
+  width: 120px;
+  padding: 15px;
+  border: 1px solid #fff;
+  font-family: 'Teko', sans-serif;
+  font-size: 24px;
+}
+
+.title button:hover {
+  cursor: pointer;
+  border: 1px solid #000;
+  transition: 1s ease-in-out; /* add anim */
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.main h3 {
+  font-size: 32px; /* add anim */
+}
+
+.createCard {
+  display: flex;
+  gap: 20px;
+}
+
+.main-input {
+  width: 210px;
+  height: 56px;
+  padding: 0 16px;
+  background: transparent;
+  border-radius: 10px;
+  font-family: 'Teko', sans-serif;
+  font-size: 24px;
+}
+
+.main-input:valid {
+  border-color: #588157; /* Green */
+  color: #B5E48C;
+  animation: none;
+}
+
+.main-input:invalid {
+  border-color: #C1121F; /* Red */
+  color: #C1121F;
+  animation: shake 0.14s 3;
+}
+
+@keyframes shake {
+  0%, 100% {
+    translate: 0;
+  }
+  25% {
+    translate: 8px 0;
+  }
+  75% {
+    translate: -8px 0;
+  }
+}
+
+.main-input::placeholder {
+  color: #000;
+  font-family: 'Teko', sans-serif;
+}
+
+.createCard button {
+  padding: 0 16px;
+  border: 1px solid #fff;
+  border-radius: 10px;
+}
+
+.addCard:hover {
+  cursor: pointer; /* add anim */
+}
+
+/* _________________________________________________________________________ */
+
+.content {
+  display: flex;
+  justify-content: start;  /* */
+  width: 90%;
+  border: 1px solid #fff;
+  font-family: 'Poppins', sans-serif;
+  padding: 15px;
+}
+
+.contentTitle {
+  flex-direction: column;
+}
+
+.inputs {
+  flex-direction: column;
+}
+
+.inputs input {
+  flex-direction: column;
+  width: 120px;
+  height: 30px;
+  outline: none;
+}
+
+.content button {
+  width: 120px;
+  height: 30px;
+  cursor: pointer;
+}
