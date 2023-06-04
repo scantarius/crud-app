@@ -6,10 +6,6 @@
   background-color: #4a4e69;
 }
 
-.App {
-  font-family: 'Poppins', sans-serif;
-}
-
 .title {
   display: flex;
   flex-direction: column;
@@ -20,22 +16,29 @@
 }
 
 .title h2 {
+  color: #22223b;
   font-family: 'Poppins', sans-serif;
 }
 
 .title button {
   height: 60px;
-  width: 120px;
+  width: 150px;
   padding: 15px;
-  border: 1px solid #fff;
+  border: 2px solid #22223b;
   font-family: 'Teko', sans-serif;
   font-size: 24px;
+  transition: all 2s;
 }
 
 .title button:hover {
+  transform: scale(0.98);
+  border-radius: 30px 0px 30px;
   cursor: pointer;
-  border: 1px solid #000;
-  transition: 1s ease-in-out; /* add anim */
+  color: #f2e9e4;
+}
+
+.title button:active {
+  transform: scale(1.1);
 }
 
 .main {
@@ -48,11 +51,14 @@
 }
 
 .main h3 {
+  font-family: 'Poppins', sans-serif;
   font-size: 32px; /* add anim */
 }
 
 .createCard {
   display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
   gap: 20px;
 }
 
@@ -67,14 +73,12 @@
 }
 
 .main-input:valid {
-  border-color: #588157; /* Green */
-  color: #B5E48C;
+  color: #6A994E;
   animation: none;
 }
 
 .main-input:invalid {
-  border-color: #C1121F; /* Red */
-  color: #C1121F;
+  color: #8B0000;
   animation: shake 0.14s 3;
 }
 
@@ -91,48 +95,113 @@
 }
 
 .main-input::placeholder {
-  color: #000;
+  color: #22223b;
   font-family: 'Teko', sans-serif;
 }
 
 .createCard button {
-  padding: 0 16px;
-  border: 1px solid #fff;
-  border-radius: 10px;
+  border: none;
 }
 
 .addCard:hover {
   cursor: pointer; /* add anim */
 }
 
+.addCardIcon {
+  transition: all 1s;
+}
+
+.addCardIcon:hover {
+  fill: #6A994E;
+}
+
+.addCardIcon:active {
+  transform: scale(1.1);
+}
+
 /* _________________________________________________________________________ */
 
 .content {
   display: flex;
-  justify-content: start;  /* */
+  flex-wrap: wrap;
   width: 90%;
-  border: 1px solid #fff;
-  font-family: 'Poppins', sans-serif;
+  border: 1px solid #f2e9e4;
+  border-radius: 10px;
   padding: 15px;
+  gap: 100%;
+  position: relative;
 }
 
 .contentTitle {
   flex-direction: column;
+  word-break: break-all;
+}
+
+.contentTitle h3 {
+  overflow-wrap: break-word;
 }
 
 .inputs {
-  flex-direction: column;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
 }
 
 .inputs input {
-  flex-direction: column;
   width: 120px;
   height: 30px;
+  font-size: 24px;
+  border-top: none;
+  border-right: none;
+  border-left: none;
+  border-bottom: 2px solid #000;
   outline: none;
+}
+
+.inputs input::placeholder {
+  font-family: 'Teko', sans-serif;
+  color: #22223b;
+}
+
+.inputs input:valid {
+  color: #6A994E;
+  animation: none;
+}
+
+.inputs input:invalid {
+  color: #8B0000;
+  animation: shake 0.14s 3;
 }
 
 .content button {
   width: 120px;
   height: 30px;
+  border: none;
   cursor: pointer;
+}
+
+.deleteButton {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin-top: 20px;
+  border: none;
+}
+
+.updateIcon,
+.deleteIcon {
+  transition: all 1s;
+}
+
+.updateIcon:hover {
+  fill: #6A994E;
+}
+
+.deleteIcon:hover {
+  fill: #8B0000;
+}
+
+.updateIcon:active,
+.deleteIcon:active {
+  transform: scale(1.1);
 }

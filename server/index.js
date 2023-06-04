@@ -43,7 +43,7 @@ app.post('/create', (req, res) => {
 
 app.get('/list', (req, res) => {
     if(db.query(
-        "SELECT * FROM crud;", (err, result) => {
+        "SELECT * FROM crud ORDER BY id DESC;", (err, result) => {
         if(err) {
             console.log(err);
         } else {
@@ -64,7 +64,6 @@ app.put('/update', (req, res) => {
             res.send(result);
         }
     })
-
 })
 
 app.delete("/delete/:id", (req, res) => {

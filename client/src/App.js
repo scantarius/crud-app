@@ -1,16 +1,18 @@
 import './App.css';
-import React,{useState} from 'react';
+import React, {useState} from 'react';
 import Axios from "axios";
 
 function App() {  
   const [fullname, setFullName] = useState("");
   const [pos, setPos] = useState("");
   const [experience, setExperience] = useState("");
+  const [newExperience, setNewExperience] = useState("");
   const [listCards, setListCards] = useState([]);
-  const [newFullName, setNewFullName] = useState(0);
-  const [newPos, setNewPos] = useState(0);
-  const [newExperience, setNewExperience] = useState(0);
-  
+
+  //fix div class za citav sajt
+
+  const onInput = (e) => setNewExperience(e.target.value);
+
   const createCard = () => {
     Axios.post("http://localhost:3001/create", {
       fullname: fullname,
@@ -18,6 +20,9 @@ function App() {
       experience: experience
     }).then(() => {
       getList();
+      setFullName("");
+      setPos("");
+      setExperience("");
       console.log("Successfully added new card!");
         setListCards([
           ...listCards, {
@@ -31,16 +36,14 @@ function App() {
 
   const updateList = (id) => {
     Axios.put("http://localhost:3001/update", {
-      fullname: newFullName,
-      pos: newPos,
       experience: newExperience,
       id: id
-    }).then((response) => {
+    }).then(() => {
       setListCards(listCards.map((val) => {
         return val.id === id 
         ? {
-            fullname: newFullName,
-            pos: newPos,
+            fullname: val.fullname,
+            pos: val.pos,
             experience: newExperience,
             id: val.id
           }
@@ -68,20 +71,21 @@ function App() {
 
       <div className='title'>
         <h1>Create Remove Update Delete</h1>
-        <h2>React, Node and MySQL</h2>
-        <button onClick={getList}>Show All</button>
+        <h2>Created with React, Node and MySQL</h2>
+        <button onClick={getList}>Show All Created</button>
       </div>
 
       <div className='main'>
-        <h3>Fill The Fields</h3>
+        <h3>Create New</h3>
         <div className='createCard'>
           <input
             className='main-input' 
-            type='text'
-            required
+            type='text' 
+            required 
             placeholder='Full Name'
+            value={fullname}
             onChange={(event) => {
-            setFullName(event.target.value); 
+            setFullName(event.target.value);
           }}
           />
 
@@ -90,6 +94,7 @@ function App() {
             type='text'
             required
             placeholder='Position'
+            value={pos}
             onChange={(event) => {
             setPos(event.target.value); 
           }}
@@ -100,20 +105,22 @@ function App() {
             type='text'
             required
             placeholder='Experience'
+            value={experience}
             onChange={(event) => {
             setExperience(event.target.value); 
-          }}
+            }}
           />
       
           <button className='addCard' onClick={createCard}>
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="plusicon" viewBox="0 0 16 16">
-            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
-            <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#e0e1dd" className="addCardIcon" viewBox="0 0 16 16">
+            <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H1s-1 0-1-1 1-4 6-4 6 3 6 
+            4zm-1-.004c-.001-.246-.154-.986-.832-1.664C9.516 10.68 8.289 10 6 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
+            <path fillRule="evenodd" d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5z"/>
           </svg>
           </button>
         </div>
             
-        {listCards.map((val, idx) => {
+        {listCards.map((val, index) => {
           return (
             <div className='content'>
               <div className='contentTitle'>
@@ -122,44 +129,40 @@ function App() {
                 <h3>Experience: {val.experience}</h3>
               </div>
 
-                <div className='inputs'>
-                  <input 
-                    className='edit-input' 
-                    type='text'
-                    placeholder='Edit name'
-                    onChange={(event) => {
-                      setNewFullName(event.target.value);
-                    }}
-                  />
-                  
-                  <input 
-                    className='edit-input' 
-                    type='text'
-                    placeholder='Edit position'
-                    onChange={(event) => {
-                      setNewPos(event.target.value);
-                    }}
-                  />
+              <div className='inputs' key={index}>
+                <input
+                  className='edit-input'
+                  type='text'
+                  required
+                  placeholder='Edit experience'
+                  onInput={onInput}
+                  onChange={(event) => {
+                    setNewExperience(event.target.value);
+                  }}
+                />
 
-                  <input 
-                    className='edit-input' 
-                    type='text'
-                    placeholder='Edit experience'
-                    onChange={(event) => {
-                      setNewExperience(event.target.value);
-                    }}
-                  />
+                <button onClick={() => {
+                  updateList(val.id);
+                  }
+                }>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#e0e1dd" className="updateIcon" viewBox="0 0 16 16">
+                    <path fillRule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z"/>
+                    <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z"/>
+                  </svg>
+                </button>
 
-                  <button onClick={() => {
-                    updateList(val.id);
-                    }
-                  }>Update</button>
-
-                  <button onClick={() => {
-                    deleteList(val.id);
-                    }
-                  }>Delete</button>
-                </div>
+                <button className='deleteButton' onClick={() => {
+                  deleteList(val.id);
+                  }
+                }>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="#e0e1dd" className="deleteIcon" viewBox="0 0 16 16">
+                    <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 
+                    .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z"/>
+                    <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 
+                    1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z"/>
+                  </svg>
+                </button>
+              </div>
             </div>
           );
         })}
