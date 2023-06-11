@@ -9,10 +9,6 @@ function App() {
   const [newExperience, setNewExperience] = useState("");
   const [listCards, setListCards] = useState([]);
 
-  //fix div class za citav sajt
-
-  const onInput = (e) => setNewExperience(e.target.value);
-
   const createCard = () => {
     Axios.post("http://localhost:3001/create", {
       fullname: fullname,
@@ -48,7 +44,8 @@ function App() {
             id: val.id
           }
         : val;
-      }));
+      }
+      ));
     })
   };
 
@@ -135,7 +132,7 @@ function App() {
                   type='text'
                   required
                   placeholder='Edit experience'
-                  onInput={onInput}
+                  value={newExperience}
                   onChange={(event) => {
                     setNewExperience(event.target.value);
                   }}
@@ -143,6 +140,7 @@ function App() {
 
                 <button onClick={() => {
                   updateList(val.id);
+                  setNewExperience("");
                   }
                 }>
                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#e0e1dd" className="updateIcon" viewBox="0 0 16 16">
